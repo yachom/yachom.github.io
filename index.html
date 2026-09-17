@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>배민규 · Portfolio</title>
+<meta name="description" content="배민규 — 금융 도메인에서 LLM 에이전트와 데이터 파이프라인을 직접 설계·검증하는 엔지니어. 실제 GitHub 커밋 기반 프로젝트 6건.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4F8;
+    --surface:#FFFFFF;
+    --surface-2:#E9ECF2;
+    --ink:#141B26;
+    --ink-soft:#52616F;
+    --ink-faint:#8792A0;
+    --accent:#1F3A5F;
+    --accent-strong:#14263F;
+    --gold:#8A6A22;
+    --verified:#276B4E;
+    --verified-bg:#E6F1EB;
+    --line:#D7DBE3;
+    --serif:'Gowun Batang','Noto Serif KR',ui-serif,Georgia,serif;
+    --sans:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',-apple-system,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E141C;
+      --surface:#161D27;
+      --surface-2:#1E2733;
+      --ink:#E7ECF3;
+      --ink-soft:#9AA5B4;
+      --ink-faint:#5E6B7A;
+      --accent:#8FB0DA;
+      --accent-strong:#B7CCE8;
+      --gold:#D8AC63;
+      --verified:#6FC095;
+      --verified-bg:#17281F;
+      --line:#29323F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E141C;
+    --surface:#161D27;
+    --surface-2:#1E2733;
+    --ink:#E7ECF3;
+    --ink-soft:#9AA5B4;
+    --ink-faint:#5E6B7A;
+    --accent:#8FB0DA;
+    --accent-strong:#B7CCE8;
+    --gold:#D8AC63;
+    --verified:#6FC095;
+    --verified-bg:#17281F;
+    --line:#29323F;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:var(--accent);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding:96px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 22px;
+  }
+  h1.name{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(40px, 6vw, 62px);
+    line-height:1.05;
+    margin:0 0 18px;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  .position-line{
+    font-family:var(--serif);
+    font-size:clamp(18px,2.4vw,22px);
+    color:var(--accent);
+    margin:0 0 26px;
+    text-wrap:balance;
+  }
+  .bio{
+    max-width:62ch;
+    font-size:clamp(14.5px,1.6vw,16.5px);
+    color:var(--ink-soft);
+    margin:0 0 30px;
+  }
+  .hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 28px;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .hero-meta a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--line);}
+  .hero-meta a:hover{color:var(--accent); border-color:var(--accent);}
+  .hero-meta span.dim{color:var(--ink-faint);}
+
+  /* ---------- Quick nav ---------- */
+  .quicknav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 22px;
+    margin-top:26px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:12.5px;
+  }
+  .quicknav a{color:var(--ink-faint); text-decoration:none;}
+  .quicknav a:hover{color:var(--accent);}
+
+  /* ---------- Stat strip ---------- */
+  .stats-strip{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    margin:44px 0 0;
+  }
+  .stat-tile{
+    background:var(--surface);
+    padding:22px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .stat-tile .num{
+    font-family:var(--mono);
+    font-size:clamp(26px,3vw,34px);
+    font-weight:600;
+    color:var(--gold);
+    font-variant-numeric:tabular-nums;
+  }
+  .stat-tile .label{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  @media (max-width:720px){ .stats-strip{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- Approach callout ---------- */
+  .approach{
+    padding:52px 0 48px;
+    border-bottom:1px solid var(--line);
+  }
+  .approach blockquote{
+    margin:0;
+    font-family:var(--serif);
+    font-size:clamp(21px,3vw,29px);
+    font-weight:700;
+    line-height:1.45;
+    color:var(--ink);
+    max-width:54ch;
+  }
+  .approach blockquote em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .approach .sub{
+    margin:16px 0 0;
+    color:var(--ink-faint);
+    font-size:14px;
+  }
+
+  /* ---------- Section headings ---------- */
+  .section-head{
+    padding:56px 0 22px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:var(--serif);
+    font-size:26px;
+    font-weight:700;
+    margin:0;
+  }
+  .section-head .count{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- Ledger grid ---------- */
+  .ledger{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    padding-bottom:20px;
+  }
+  .entry{
+    grid-column:span 1;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:26px 28px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .5s ease, transform .5s ease;
+    min-width:0;
+  }
+  .entry.is-visible{opacity:1; transform:translateY(0);}
+  .entry.flagship{grid-column:span 2;}
+  @media (max-width:720px){
+    .ledger{grid-template-columns:1fr;}
+    .entry.flagship{grid-column:span 1;}
+  }
+
+  .entry-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .entry-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+  }
+  .track-tags{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;}
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:2px;
+    background:var(--surface-2);
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .entry h3{
+    font-family:var(--serif);
+    font-size:21px;
+    font-weight:700;
+    margin:0;
+    line-height:1.3;
+  }
+  .entry h3 a{color:var(--ink); text-decoration:none;}
+  .entry h3 a:hover{color:var(--accent);}
+  .entry .context{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-faint);
+    margin-top:-8px;
+  }
+
+  .entry p.desc{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:15px;
+    max-width:62ch;
+  }
+
+  .entry-foot{
+    margin-top:auto;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    padding-top:6px;
+  }
+  .stack{display:flex; flex-wrap:wrap; gap:6px; max-width:70%;}
+  .stack span{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    background:var(--surface-2);
+    padding:3px 7px;
+    border-radius:2px;
+  }
+  .metric{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:600;
+    color:var(--gold);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    text-align:right;
+  }
+  .metric small{
+    display:block;
+    font-family:var(--mono);
+    font-weight:400;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-top:2px;
+  }
+
+  .repo-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .repo-link:hover{border-color:var(--accent);}
+  .repo-link svg{width:12px; height:12px; flex:none;}
+
+  .verified-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    color:var(--verified);
+    background:var(--verified-bg);
+    padding:3px 8px;
+    border-radius:2px;
+  }
+
+  /* ---------- Matrix ---------- */
+  .matrix{
+    padding:20px 0 8px;
+  }
+  .matrix-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:14px;
+  }
+  @media (max-width:720px){ .matrix-grid{grid-template-columns:1fr;} }
+  .matrix-col{
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:18px 18px 16px;
+    background:var(--surface);
+  }
+  .matrix-col.both{border-color:var(--accent);}
+  .matrix-col h5{
+    margin:0 0 12px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .matrix-col.both h5{color:var(--accent);}
+  .matrix-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 0;
+    font-size:14px;
+    color:var(--ink);
+    border-top:1px solid var(--line);
+  }
+  .matrix-item:first-of-type{border-top:none;}
+  .matrix-item .mi-num{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-faint);
+    flex:none;
+  }
+
+  /* ---------- Notes ---------- */
+  .notes{
+    padding:56px 0 8px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:720px){ .notes{grid-template-columns:1fr;} }
+  .notes h4{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 10px;
+  }
+  .notes p{
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top:60px;
+    border-top:1px solid var(--line);
+    padding:36px 0 64px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  footer .fine{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- Small-screen hardening ---------- */
+  @media (max-width:480px){
+    .wrap{padding:0 18px;}
+    header.hero{padding:56px 0 32px;}
+    .bio{margin-bottom:22px;}
+    .stats-strip{grid-template-columns:repeat(2,1fr); margin-top:32px;}
+    .approach{padding:40px 0 36px;}
+    .section-head{padding:40px 0 16px;}
+    .entry{padding:20px 20px 18px;}
+    .entry-foot{flex-direction:column; align-items:flex-start; gap:10px;}
+    .metric{text-align:left;}
+    .stack{max-width:100%;}
+    .matrix-grid{gap:10px;}
+    .notes{padding:40px 0 8px; gap:24px;}
+    footer{padding:28px 0 48px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .entry{transition:none; opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">한화금융 · AI/데이터(Modeler·Engineer) 지원</p>
+    <h1 class="name">배민규</h1>
+    <p class="position-line">금융 도메인에서 LLM 에이전트와 데이터 파이프라인을 직접 설계·검증하는 엔지니어</p>
+    <p class="bio">
+      아래 여섯 프로젝트는 전부 실제 GitHub 커밋과 실행 결과에 근거합니다. 팀 프로젝트는 제가
+      작성한 범위만 표시했고, 커밋으로 증명되지 않는 부분은 넣지 않았습니다. Claude Code 등
+      AI 코딩 도구를 실무에 적극 활용하되, 아키텍처와 검증 판단은 직접 수행합니다.
+    </p>
+    <div class="hero-meta">
+      <a href="mailto:dicha0652@gmail.com">dicha0652@gmail.com</a>
+      <a href="https://github.com/yachom" target="_blank" rel="noopener">github.com/yachom</a>
+      <span class="dim">서울대 핀테크·AI 특강 과정</span>
+    </div>
+    <nav class="quicknav" aria-label="빠른 이동">
+      <a href="#stats">핵심 지표</a>
+      <a href="#projects">프로젝트</a>
+      <a href="#matrix">역량 매트릭스</a>
+      <a href="#notes">검증 노트</a>
+    </nav>
+  </header>
+
+  <section id="stats" class="stats-strip" aria-label="핵심 지표">
+    <div class="stat-tile"><span class="num">6</span><span class="label">프로젝트 · 전부 실제 커밋 근거</span></div>
+    <div class="stat-tile"><span class="num">3</span><span class="label">Modeler + Engineer 겸비 프로젝트</span></div>
+    <div class="stat-tile"><span class="num">100%</span><span class="label">재현 가능한 수치</span></div>
+    <div class="stat-tile"><span class="num">1</span><span class="label">실기기 검증 완료 프로젝트</span></div>
+  </section>
+
+  <section class="approach" aria-label="접근 방식">
+    <blockquote>AI는 후보와 초안까지, 승인과 검증은 <em>제가</em> 직접 합니다.</blockquote>
+    <p class="sub">모든 지표는 재현 가능한 코드에서 나왔습니다.</p>
+  </section>
+
+  <section id="projects" aria-labelledby="ledger-head">
+    <div class="section-head">
+      <h2 id="ledger-head">프로젝트</h2>
+      <span class="count">06 entries</span>
+    </div>
+
+    <div class="ledger" id="ledger">
+
+      <article class="entry flagship" data-i="1">
+        <div class="entry-top">
+          <span class="entry-index">01 · 개인 프로젝트</span>
+          <div class="track-tags"><span class="tag">Modeler</span><span class="tag">Engineer</span></div>
+        </div>
+        <h3><a href="https://github.com/yachom/research-to-backtest" target="_blank" rel="noopener">Research-to-Backtest</a></h3>
+        <p class="desc">
+          DART·XBRL 공시 데이터를 근거(Evidence)로 정규화하고, AI는 분석 후보와 전략 초안만
+          작성하도록 제한한 뒤 사람이 관점·가설·전략 승인을 직접 수행하는 Human-in-the-Loop
+          기업 리서치 → Point-in-Time 백테스트 파이프라인. 두 프로젝트가 승인된 가설(JSON)과
+          PIT 데이터셋만을 계약으로 공유하도록 설계했습니다.
+        </p>
+        <div class="entry-foot">
+          <div class="stack">
+            <span>Python</span><span>DART API</span><span>XBRL</span><span>LLM Client</span><span>pandas</span>
+          </div>
+          <div class="metric">HITL v2<small>Human-in-the-Loop 설계</small></div>
+        </div>
+      </article>
+
+      <article class="entry" data-i="2">
+        <div class="entry-top">
+          <span class="entry-index">02 · 2인 팀 · 미래에셋 AI 공모전</span>
+          <div class="track-tags"><span class="tag">Modeler</span><span class="tag">Engineer</span></div>
+        </div>
+        <h3><a href="https://github.com/yachom/fin-multi-agent-advisor" target="_blank" rel="noopener">Financial Multi-Agent Advisor</a></h3>
+        <p class="desc">
+          뉴스·차트·재무를 담당하는 세 전문가 에이전트가 병렬로 분석하고, 수석 전략가
+          에이전트가 고객 성향에 맞춰 하나의 투자 내러티브로 종합하는 LangGraph 파이프라인.
+        </p>
+        <div class="entry-foot">
+          <div class="stack">
+            <span>LangGraph</span><span>HyperCLOVA X</span><span>FastAPI</span><span>SSE</span><span>MCP</span>
+          </div>
+          <div class="metric">8-node<small>fork / join 그래프</small></div>
+        </div>
+      </article>
+
+      <article class="entry" data-i="3">
+        <div class="entry-top">
+          <span class="entry-index">03 · 개인 프로젝트</span>
+          <div class="track-tags"><span class="tag">Modeler</span></div>
+        </div>
+        <h3><a href="https://github.com/yachom/dart-mdna-shareholder-scoring" target="_blank" rel="noopener">DART MD&amp;A 주주가치 스코어링</a></h3>
+        <p class="desc">
+          LLM을 심사위원으로 세워 감사보고서 서술(MD&amp;A)을 5개 지표로 채점하고, 주주가치중시기업과
+          대조군의 차이를 Welch's t-test·OLS(HC3)·Hedges' g로 검증.
+        </p>
+        <div class="entry-foot">
+          <div class="stack">
+            <span>Gemini</span><span>scipy</span><span>statsmodels</span>
+          </div>
+          <div class="metric">p&lt;0.001<small>investor_focus, g=0.63</small></div>
+        </div>
+      </article>
+
+      <article class="entry" data-i="4">
+        <div class="entry-top">
+          <span class="entry-index">04 · 팀 프로젝트 · 서울대 핀테크 과정</span>
+          <div class="track-tags"><span class="tag">Modeler</span></div>
+        </div>
+        <h3><a href="https://github.com/yachom/lendingclub-portfolio-backtester" target="_blank" rel="noopener">Lending Club Portfolio Backtester</a></h3>
+        <p class="desc">
+          어떤 예측모델의 출력이든 동일 기준으로 비교할 수 있도록 설계한 모델-비종속 백테스트
+          엔진. 선택하지 않은 대출의 기회비용을 국채 Shadow Matrix로 명시적으로 모델링.
+        </p>
+        <div class="entry-foot">
+          <div class="stack">
+            <span>NumPy</span><span>pandas</span><span>Shadow Matrix</span>
+          </div>
+          <div class="metric">Sharpe 0.90<small>threshold 스윕 최적화</small></div>
+        </div>
+      </article>
+
+      <article class="entry" data-i="5">
+        <div class="entry-top">
+          <span class="entry-index">05 · 팀 프로젝트 · AI 특강 과정</span>
+          <div class="track-tags"><span class="tag">Engineer</span></div>
+        </div>
+        <h3><a href="https://github.com/yachom/jarvis-samsung-health-bridge" target="_blank" rel="noopener">Jarvis Samsung Health Bridge</a></h3>
+        <p class="desc">
+          기상(wake) 신호를 감지하면 개인비서의 아침 브리핑이 자동으로 시작되도록 만든
+          Android ↔ 백엔드 연동. WorkManager 자동 동기화로 중복 업로드를 방지합니다.
+        </p>
+        <div class="entry-foot">
+          <div class="stack">
+            <span>Kotlin</span><span>WorkManager</span><span>FastAPI</span>
+          </div>
+          <div class="metric"><span class="verified-badge">✓ 실기기 검증</span></div>
+        </div>
+      </article>
+
+      <article class="entry flagship" data-i="6">
+        <div class="entry-top">
+          <span class="entry-index">06 · 팀 프로젝트 · LLM 처리 과정</span>
+          <div class="track-tags"><span class="tag">Modeler</span><span class="tag">Engineer</span></div>
+        </div>
+        <h3><a href="https://github.com/yachom/samsung-audit-multiagent-rag" target="_blank" rel="noopener">Samsung Audit Multi-Agent RAG</a></h3>
+        <p class="desc">
+          감사보고서 Agentic RAG의 4단계 에이전트(오케스트레이터·쿼리 재작성·리트리버·애널리스트)
+          오케스트레이션을 설계하고, 생성 모델과 채점 모델을 분리한 LLM-as-Judge 평가 프레임워크로
+          임베딩·청킹·모델 조합을 비교했습니다. 자기교정 루프(NEED_MORE_SEARCH)로 검색 재시도까지
+          설계에 포함했습니다.
+        </p>
+        <div class="entry-foot">
+          <div class="stack">
+            <span>LangGraph</span><span>Streamlit</span><span>LLM-as-Judge</span><span>Ollama</span>
+          </div>
+          <div class="metric">5-axis<small>eval · 3방향 비교실험</small></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="matrix" class="matrix" aria-label="역량 매트릭스">
+    <div class="section-head">
+      <h2>역량 매트릭스</h2>
+      <span class="count">트랙별 분류</span>
+    </div>
+    <div class="matrix-grid">
+      <div class="matrix-col">
+        <h5>Modeler 전용</h5>
+        <div class="matrix-item"><span class="mi-num">03</span><span>DART MD&amp;A 주주가치 스코어링</span></div>
+        <div class="matrix-item"><span class="mi-num">04</span><span>Lending Club Portfolio Backtester</span></div>
+      </div>
+      <div class="matrix-col">
+        <h5>Engineer 전용</h5>
+        <div class="matrix-item"><span class="mi-num">05</span><span>Jarvis Samsung Health Bridge</span></div>
+      </div>
+      <div class="matrix-col both">
+        <h5>Modeler + Engineer</h5>
+        <div class="matrix-item"><span class="mi-num">01</span><span>Research-to-Backtest</span></div>
+        <div class="matrix-item"><span class="mi-num">02</span><span>Financial Multi-Agent Advisor</span></div>
+        <div class="matrix-item"><span class="mi-num">06</span><span>Samsung Audit Multi-Agent RAG</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="notes" class="notes" aria-label="추가 안내">
+    <div>
+      <h4>팀 프로젝트 표기 기준</h4>
+      <p>02·04·05·06번은 팀 프로젝트입니다. 각 저장소는 제가 작성한 파일만 담았고,
+      README에 담당 범위와 원본 팀 저장소 링크를 명시했습니다.</p>
+    </div>
+    <div>
+      <h4>실행 가능 여부</h4>
+      <p>01·02·03·04번은 문서의 안내대로 직접 실행됩니다. 05·06번은 팀 공용 앱 스켈레톤에
+      의존하는 기능 모듈이라, 코드와 실기기·테스트 근거로 대신합니다.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span class="fine">Portfolio — 배민규</span>
+    <span class="fine"><a href="mailto:dicha0652@gmail.com" style="color:var(--ink-faint)">dicha0652@gmail.com</a> · <a href="https://github.com/yachom" target="_blank" rel="noopener" style="color:var(--ink-faint)">github.com/yachom</a></span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var items = document.querySelectorAll('.entry');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
